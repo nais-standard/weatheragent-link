@@ -1,0 +1,16 @@
+{
+    "name": "nais-standard/weatheragent-link",
+    "description": "Production MCP weather server for weatheragent.link using Open-Meteo",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "php": "^8.4",
+        "guzzlehttp/guzzle": "^7.0",
+        "vlucas/phpdotenv": "^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "WeatherAgent\\": "src/"
+        }
+    }
+}

@@ -1,0 +1,238 @@
+{
+    "nais": "1.0",
+    "cardVersion": 1,
+    "updated": "2026-06-18T00:00:00Z",
+    "name": "WeatherAgent",
+    "domain": "weatheragent.link",
+    "description": "Production MCP weather server providing real-time current conditions, hourly and daily forecasts, geocoding, and multi-location comparison. Powered by Open-Meteo.",
+    "tags": [
+        "weather",
+        "forecast",
+        "geocoding",
+        "mcp",
+        "open-meteo"
+    ],
+    "contact": "https://github.com/nais-standard/weatheragent-link/issues",
+    "mcp": "https://weatheragent.link/mcp",
+    "auth": [
+        {
+            "scheme": "none"
+        }
+    ],
+    "mcpSnapshot": {
+        "capturedAt": "2026-06-18T00:00:00Z",
+        "toolsHash": "sha256:447ad8f8540a189fd82bd8c284e03a897bc182e3baaa69b72f147e8db011dd39",
+        "tools": [
+            {
+                "name": "compare_weather",
+                "description": "Compare current weather or daily forecast across multiple locations. Useful for deciding between destinations or comparing conditions in different cities.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "locations": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "description": "Array of location names to compare (2-5 locations)",
+                            "minItems": 2,
+                            "maxItems": 5
+                        },
+                        "type": {
+                            "type": "string",
+                            "enum": [
+                                "current",
+                                "daily"
+                            ],
+                            "description": "Comparison type: \"current\" for current conditions, \"daily\" for daily forecast. Default: current"
+                        },
+                        "temperature_unit": {
+                            "type": "string",
+                            "enum": [
+                                "celsius",
+                                "fahrenheit"
+                            ],
+                            "description": "Temperature unit. Default: celsius"
+                        }
+                    },
+                    "required": [
+                        "locations"
+                    ]
+                }
+            },
+            {
+                "name": "geocode_location",
+                "description": "Search for a location by name and return matching places with coordinates, country, timezone, population, and administrative divisions.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "type": "string",
+                            "description": "Location name to search for (e.g., \"Berlin\", \"San Francisco\")"
+                        },
+                        "count": {
+                            "type": "integer",
+                            "description": "Maximum number of results (1-20). Default: 5",
+                            "minimum": 1,
+                            "maximum": 20
+                        },
+                        "language": {
+                            "type": "string",
+                            "description": "Language for result names (e.g., \"en\", \"de\", \"fr\"). Default: en"
+                        },
+                        "country_code": {
+                            "type": "string",
+                            "description": "Filter by ISO 3166-1 alpha-2 country code (e.g., \"US\", \"DE\", \"JP\")"
+                        }
+                    },
+                    "required": [
+                        "name"
+                    ]
+                }
+            },
+            {
+                "name": "get_current_weather",
+                "description": "Get current weather conditions for a location. Returns temperature, humidity, wind, precipitation, cloud cover, pressure, and weather description.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "location": {
+                            "type": "string",
+                            "description": "City name or location to search for (e.g., \"London\", \"New York\", \"Tokyo, Japan\")"
+                        },
+                        "temperature_unit": {
+                            "type": "string",
+                            "enum": [
+                                "celsius",
+                                "fahrenheit"
+                            ],
+                            "description": "Temperature unit. Default: celsius"
+                        },
+                        "wind_speed_unit": {
+                            "type": "string",
+                            "enum": [
+                                "kmh",
+                                "ms",
+                                "mph",
+                                "kn"
+                            ],
+                            "description": "Wind speed unit. Default: kmh"
+                        },
+                        "precipitation_unit": {
+                            "type": "string",
+                            "enum": [
+                                "mm",
+                                "inch"
+                            ],
+                            "description": "Precipitation unit. Default: mm"
+                        }
+                    },
+                    "required": [
+                        "location"
+                    ]
+                }
+            },
+            {
+                "name": "get_daily_forecast",
+                "description": "Get daily weather forecast for a location. Returns min/max temperatures, precipitation, sunrise/sunset, wind, and UV index for each day.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "location": {
+                            "type": "string",
+                            "description": "City name or location to search for"
+                        },
+                        "days": {
+                            "type": "integer",
+                            "description": "Number of forecast days (1-16). Default: 7",
+                            "minimum": 1,
+                            "maximum": 16
+                        },
+                        "temperature_unit": {
+                            "type": "string",
+                            "enum": [
+                                "celsius",
+                                "fahrenheit"
+                            ],
+                            "description": "Temperature unit. Default: celsius"
+                        },
+                        "wind_speed_unit": {
+                            "type": "string",
+                            "enum": [
+                                "kmh",
+                                "ms",
+                                "mph",
+                                "kn"
+                            ],
+                            "description": "Wind speed unit. Default: kmh"
+                        },
+                        "precipitation_unit": {
+                            "type": "string",
+                            "enum": [
+                                "mm",
+                                "inch"
+                            ],
+                            "description": "Precipitation unit. Default: mm"
+                        }
+                    },
+                    "required": [
+                        "location"
+                    ]
+                }
+            },
+            {
+                "name": "get_hourly_forecast",
+                "description": "Get hourly weather forecast for a location. Returns temperature, precipitation probability, wind, UV index, and more for each hour.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "location": {
+                            "type": "string",
+                            "description": "City name or location to search for"
+                        },
+                        "hours": {
+                            "type": "integer",
+                            "description": "Number of forecast hours (1-168). Default: 24",
+                            "minimum": 1,
+                            "maximum": 168
+                        },
+                        "temperature_unit": {
+                            "type": "string",
+                            "enum": [
+                                "celsius",
+                                "fahrenheit"
+                            ],
+                            "description": "Temperature unit. Default: celsius"
+                        },
+                        "wind_speed_unit": {
+                            "type": "string",
+                            "enum": [
+                                "kmh",
+                                "ms",
+                                "mph",
+                                "kn"
+                            ],
+                            "description": "Wind speed unit. Default: kmh"
+                        },
+                        "precipitation_unit": {
+                            "type": "string",
+                            "enum": [
+                                "mm",
+                                "inch"
+                            ],
+                            "description": "Precipitation unit. Default: mm"
+                        }
+                    },
+                    "required": [
+                        "location"
+                    ]
+                }
+            }
+        ]
+    },
+    "signature": {
+        "alg": "EdDSA",
+        "kid": "ed25519:i2tQ24-PhIHYhiB3gxHTjAXqL2-J-14FesniTYR4Uyw",
+        "jws": "eyJhbGciOiJFZERTQSIsImtpZCI6ImVkMjU1MTk6aTJ0UTI0LVBoSUhZaGlCM2d4SFRqQVhxTDItSi0xNEZlc25pVFlSNFV5dyJ9..RX7dJFN-KN9CAa_pcbxWLhAp7MLYsQglOI0FUOY0Aqt0HGkjLaTNcnmil7N6MNcAVYmD5c32ujRL6-O4V7kDBw"
+    }
+}

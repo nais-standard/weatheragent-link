@@ -1,0 +1,6 @@
+{
+    "_warning": "DEMO signing key for the weatheragent.link EXAMPLE \u2014 committed on purpose for a reproducible demo. Not a real production identity; do not reuse.",
+    "alg": "EdDSA",
+    "public_key_b64": "i2tQ24+PhIHYhiB3gxHTjAXqL2+J+14FesniTYR4Uyw=",
+    "secret_key_b64": "uN8DNdqJw55qMIHgpay2BDI5tS2Qs2QYxQ2ftOMvHIyLa1Dbj4+EgdiGIHeDEdOMBeovb4n7XgV6yeJNhHhTLA=="
+}

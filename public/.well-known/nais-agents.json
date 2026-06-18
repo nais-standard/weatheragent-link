@@ -1,0 +1,26 @@
+{
+  "nais_version": "1.1",
+  "domain": "weatheragent.link",
+  "default_agent": "weatheragent.link",
+  "agents": [
+    {
+      "id": "weatheragent.link",
+      "scope": "local",
+      "name": "WeatherAgent",
+      "description": "MCP weather server (current, hourly, daily, geocoding, comparison). Powered by Open-Meteo.",
+      "manifest_url": "https://weatheragent.link/.well-known/agent.json",
+      "mcp_endpoint": "https://weatheragent.link/mcp",
+      "tags": ["weather", "forecast", "geocoding"],
+      "status": "active"
+    }
+  ],
+  "linked_agents": [
+    {
+      "id": "namesilo.com",
+      "scope": "external",
+      "name": "NameSilo",
+      "relationship": "provider",
+      "verified": true
+    }
+  ]
+}
